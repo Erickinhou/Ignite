@@ -7,9 +7,14 @@ const initState = {
 const gamesReducer = (state = initState, action) => {
   switch (action.type) {
     case "FETCH_GAMES":
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
-      return { ...state };
+      return {
+        ...state,
+      };
   }
 };
 
