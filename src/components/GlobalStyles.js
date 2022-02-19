@@ -34,6 +34,9 @@ const GlobalStyles = createGlobalStyle`
     line-height: 200%;
     color: #696969
   }
+  img{
+    display: block;
+  }
   a{
     text-decoration: none;
     color: #333;
