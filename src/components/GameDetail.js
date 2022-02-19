@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //Styling and animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -7,11 +7,20 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
 const GameDetail = () => {
+  const navigate = useNavigate();
+  const exitElementHandler = (e) => {
+    const element = e.target;
+    if (element.classList.contains("shadow")) {
+      document.body.style.overflow = "auto";
+      navigate("/");
+    }
+  };
+
   const { screen, game, isLoading } = useSelector((state) => state.detail);
   return (
     <>
       {!isLoading && (
-        <CardShadow>
+        <CardShadow className="shadow" onClick={exitElementHandler}>
           <Detail>
             <Stats>
               <div className="rating">
@@ -78,6 +87,7 @@ const Detail = styled(motion.div)`
   color: black;
   img {
     width: 100%;
+    margin-bottom: 0.2rem;
   }
 `;
 
