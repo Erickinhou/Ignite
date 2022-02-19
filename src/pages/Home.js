@@ -5,8 +5,13 @@ import { motion } from "framer-motion";
 
 import { loadGames } from "../actions/gamesAction";
 import Game from "../components/Game";
+import GameDetails from "../components/GameDetail";
+import { useParams } from "react-router-dom";
 
 const Home = () => {
+  //location
+  const { id } = useParams();
+
   const dispatch = useDispatch();
   const { popular, newGames, upcoming } = useSelector((state) => state.games);
   useEffect(() => {
@@ -14,6 +19,7 @@ const Home = () => {
   }, [dispatch]);
   return (
     <GameList>
+      {id && <GameDetails />}
       <h2>Upcoming Games</h2>
       <Games>
         {upcoming.map(({ name, id, released, background_image }) => (
