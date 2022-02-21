@@ -7,6 +7,13 @@ import { motion } from "framer-motion";
 // Redux
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+//Images
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import xbox from "../img/xbox.svg";
+import nintendo from "../img/nintendo.svg";
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
 
 const GameDetail = ({ id }) => {
   const navigate = useNavigate();
@@ -21,6 +28,23 @@ const GameDetail = ({ id }) => {
       setHasScrollbar(false);
       document.body.style.overflow = "auto";
       navigate("/");
+    }
+  };
+
+  const getPlatform = (platform) => {
+    switch (platform) {
+      case "PlayStation 4":
+        return playstation;
+      case "Xbox One":
+        return xbox;
+      case "PC":
+        return steam;
+      case "Nintendo Switch":
+        return nintendo;
+      case "iOS":
+        return apple;
+      default:
+        return gamepad;
     }
   };
 
@@ -42,18 +66,22 @@ const GameDetail = ({ id }) => {
                 <h3>Platforms</h3>
                 <Platforms>
                   {game.platforms?.map((data) => (
-                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                    <img
+                      key={data.platform.id}
+                      src={getPlatform(data.platform.name)}
+                      alt={data.platform.name}
+                    />
                   ))}
                 </Platforms>
               </Info>
             </Stats>
-            <div className="media">
+            <Media>
               <motion.img
                 layoutId={`image ${id}`}
                 src={smallImage(game.background_image, 1280)}
                 alt={game.name}
               />
-            </div>
+            </Media>
             <Description>
               <p>{game.description_raw}</p>
             </Description>
@@ -113,7 +141,7 @@ const Stats = styled(motion.div)`
 `;
 
 const Info = styled(motion.div)`
-  text-align: center;
+  text-align: right;
 `;
 const Platforms = styled(motion.div)`
   display: flex;
