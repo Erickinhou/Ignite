@@ -8,6 +8,8 @@ import { smallImage } from "../util";
 import { useDispatch } from "react-redux";
 import { loadDetail } from "../actions/detailAction";
 
+import { popup } from "../animations";
+
 const Game = ({ id, name, released, image }) => {
   const stringId = id.toString();
   const dispatch = useDispatch();
@@ -15,7 +17,13 @@ const Game = ({ id, name, released, image }) => {
     dispatch(loadDetail(id));
   };
   return (
-    <StyledGame layoutId={stringId} onClick={loadDetailHandler}>
+    <StyledGame
+      variants={popup}
+      initial="hidden"
+      animate="show"
+      layoutId={stringId}
+      onClick={loadDetailHandler}
+    >
       <Link to={`/game/${id}`}>
         <motion.h3 layoutId={`title ${stringId}`}>{name}</motion.h3>
         <p>{released}</p>

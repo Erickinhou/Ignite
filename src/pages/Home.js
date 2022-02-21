@@ -8,6 +8,8 @@ import Game from "../components/Game";
 import GameDetails from "../components/GameDetail";
 import { useParams } from "react-router-dom";
 
+import { fadeIn } from "../animations";
+
 const Home = () => {
   //location
   const { id } = useParams();
@@ -20,7 +22,7 @@ const Home = () => {
     dispatch(loadGames());
   }, [dispatch]);
   return (
-    <GameList>
+    <GameList varants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>{id && <GameDetails id={id} />}</AnimatePresence>
         {searched.length !== 0 && (

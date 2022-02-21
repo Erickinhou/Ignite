@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { fadeIn } from "../animations";
 import logo from "../img/logo.svg";
 import { loadSearch, clearSearch } from "../actions/gamesAction";
-import { useDispatch } from "react-redux";
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Nav = () => {
     setTextInput("");
   };
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <Logo onClick={handleClear}>
         <img src={logo} alt="ignite" />
         <h1>Ignite</h1>
