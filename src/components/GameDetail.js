@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { smallImage } from "../util";
 //Styling and animation
@@ -6,26 +6,36 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 // Redux
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-const GameDetail = () => {
+const GameDetail = ({ id }) => {
   const navigate = useNavigate();
+  const { screen, game, isLoading } = useSelector((state) => state.detail);
+  const [hasScrollbar, setHasScrollbar] = useState(true);
+  useEffect(() => {
+    if (!isLoading) document.body.style.overflow = "hidden";
+  }, [isLoading]);
   const exitElementHandler = (e) => {
     const element = e.target;
     if (element.classList.contains("shadow")) {
+      setHasScrollbar(false);
       document.body.style.overflow = "auto";
       navigate("/");
     }
   };
 
-  const { screen, game, isLoading } = useSelector((state) => state.detail);
   return (
     <>
       {!isLoading && (
-        <CardShadow className="shadow" onClick={exitElementHandler}>
-          <Detail>
+        <CardShadow
+          hasScrollbar={hasScrollbar}
+          className="shadow"
+          onClick={exitElementHandler}
+        >
+          <Detail layoutId={id}>
             <Stats>
               <div className="rating">
-                <h3>{game.name}</h3>
+                <motion.h3 layoutId={`title ${id}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
               </div>
               <Info>
@@ -38,7 +48,8 @@ const GameDetail = () => {
               </Info>
             </Stats>
             <div className="media">
-              <img
+              <motion.img
+                layoutId={`image ${id}`}
                 src={smallImage(game.background_image, 1280)}
                 alt={game.name}
               />
@@ -65,7 +76,7 @@ const GameDetail = () => {
 const CardShadow = styled(motion.div)`
   width: 100%;
   min-height: 100vh;
-  overflow-y: scroll;
+  overflow-y: ${({ hasScrollbar }) => (hasScrollbar ? "scroll" : "hidden")};
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
