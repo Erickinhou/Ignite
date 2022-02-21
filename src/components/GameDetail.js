@@ -14,6 +14,9 @@ import xbox from "../img/xbox.svg";
 import nintendo from "../img/nintendo.svg";
 import apple from "../img/apple.svg";
 import gamepad from "../img/gamepad.svg";
+//Star images
+import starEmpty from "../img/star-empty.png";
+import starFull from "../img/star-full.png";
 
 const GameDetail = ({ id }) => {
   const navigate = useNavigate();
@@ -29,6 +32,20 @@ const GameDetail = ({ id }) => {
       document.body.style.overflow = "auto";
       navigate("/");
     }
+  };
+
+  const GetStars = ({ rating }) => {
+    const stars = [];
+    console.log(rating);
+    const gameHating = Math.floor(rating);
+    for (let i = 1; i <= 5; i++) {
+      if (i <= gameHating) {
+        stars.push(<img alt="star" key={i} src={starFull} />);
+      } else {
+        stars.push(<img alt="star" key={i} src={starEmpty} />);
+      }
+    }
+    return stars;
   };
 
   const getPlatform = (platform) => {
@@ -61,6 +78,7 @@ const GameDetail = ({ id }) => {
               <div className="rating">
                 <motion.h3 layoutId={`title ${id}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
+                <GetStars rating={game.rating} />
               </div>
               <Info>
                 <h3>Platforms</h3>
@@ -138,6 +156,12 @@ const Stats = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  img {
+    width: 2rem;
+    height: 2rem;
+    display: inline;
+    margin: 0;
+  }
 `;
 
 const Info = styled(motion.div)`

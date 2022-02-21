@@ -13,7 +13,9 @@ const Home = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
-  const { popular, newGames, upcoming } = useSelector((state) => state.games);
+  const { popular, newGames, upcoming, searched } = useSelector(
+    (state) => state.games
+  );
   useEffect(() => {
     dispatch(loadGames());
   }, [dispatch]);
@@ -21,6 +23,22 @@ const Home = () => {
     <GameList>
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>{id && <GameDetails id={id} />}</AnimatePresence>
+        {searched.length !== 0 && (
+          <>
+            <h2>Searched</h2>
+            <Games>
+              {searched.map(({ name, id, released, background_image }) => (
+                <Game
+                  name={name}
+                  released={released}
+                  image={background_image}
+                  id={id}
+                  key={id}
+                />
+              ))}
+            </Games>
+          </>
+        )}
         <h2>Upcoming Games</h2>
         <Games>
           {upcoming.map(({ name, id, released, background_image }) => (
