@@ -87,6 +87,11 @@ const GameList = styled(motion.div)`
   h2 {
     padding: 5rem 0rem;
   }
+  @media screen and (max-width: 720px) {
+    padding: 0;
+    width: 80%;
+    margin: 0 auto;
+  }
 `;
 const Games = styled(motion.div)`
   min-height: 80vh;
@@ -94,6 +99,11 @@ const Games = styled(motion.div)`
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   grid-column-gap: 3rem;
   grid-row-gap: 5rem;
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-column-gap: 1rem;
+    grid-row-gap: 0.8rem;
+  }
 `;
 
 export default Home;

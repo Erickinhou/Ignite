@@ -27,7 +27,10 @@ const GameDetail = ({ id }) => {
   }, [isLoading]);
   const exitElementHandler = (e) => {
     const element = e.target;
-    if (element.classList.contains("shadow")) {
+    if (
+      element.classList.contains("shadow") ||
+      element.classList.contains("close-button")
+    ) {
       setHasScrollbar(false);
       document.body.style.overflow = "auto";
       navigate("/");
@@ -75,12 +78,13 @@ const GameDetail = ({ id }) => {
         >
           <Detail layoutId={id}>
             <Stats>
-              <div className="rating">
+              <Rating>
                 <motion.h3 layoutId={`title ${id}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
                 <GetStars rating={game.rating} />
-              </div>
+              </Rating>
               <Info>
+                <div className="close-button">X</div>
                 <h3>Platforms</h3>
                 <Platforms>
                   {game.platforms?.map((data) => (
@@ -150,6 +154,25 @@ const Detail = styled(motion.div)`
     width: 100%;
     margin-bottom: 0.2rem;
   }
+  @media screen and (max-width: 720px) {
+    width: 100%;
+    left: 0%;
+    border-radius: 0;
+    padding: 0;
+  }
+`;
+
+const Rating = styled.div`
+  @media screen and (max-width: 720px) {
+    margin: 0 0.5rem;
+
+    p {
+      font-size: 0.7rem;
+    }
+    h3 {
+      text-align: left;
+    }
+  }
 `;
 
 const Stats = styled(motion.div)`
@@ -162,10 +185,28 @@ const Stats = styled(motion.div)`
     display: inline;
     margin: 0;
   }
+  @media screen and (max-width: 720px) {
+    img {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
 `;
 
 const Info = styled(motion.div)`
   text-align: right;
+  .close-button {
+    display: none;
+  }
+  @media screen and (max-width: 720px) {
+    margin: 0 1rem;
+    .close-button {
+      display: block;
+      margin-top: 0.4rem;
+      padding: 0.2rem;
+      font-weight: bold;
+    }
+  }
 `;
 const Platforms = styled(motion.div)`
   display: flex;
@@ -173,15 +214,28 @@ const Platforms = styled(motion.div)`
   img {
     margin-left: 3rem;
   }
+  @media screen and (max-width: 720px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16px, 1fr));
+    grid-column-gap: 0.2rem;
+    img {
+      margin: 0;
+    }
+  }
 `;
 const Media = styled(motion.div)`
-  margin-top: 5rem;
+  margin-top: 3rem;
   img {
     width: 100%;
   }
 `;
 const Description = styled(motion.div)`
   margin: 5rem 0rem;
+  @media screen and (max-width: 720px) {
+    font-size: 0.6rem;
+    padding: 0 0.6rem;
+    text-align: justify;
+  }
 `;
 
 export default GameDetail;

@@ -64,6 +64,24 @@ const StyledNav = styled(motion.nav)`
     color: white-space;
     font-family: "Montserrat", sans-serif;
   }
+  @media screen and (max-width: 720px) {
+    padding: 0;
+    width: 80%;
+    margin: 0 auto;
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+      input {
+        width: auto;
+        margin: 0;
+      }
+      button {
+        height: 100%;
+      }
+    }
+  }
 `;
 
 const Logo = styled.div`
